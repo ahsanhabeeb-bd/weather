@@ -23,15 +23,16 @@ class _Homepage1State extends State<Homepage1> {
   }
 
   final TextEditingController _controller = TextEditingController();
+  final TextEditingValue text = TextEditingValue();
   final Apiservices weatherservices = Apiservices();
 
   List<String> citys = [];
   Map<String, dynamic>? weatherdata;
+  String city = "auto:ip";
 
   Future<void> fetchdata() async {
     try {
-      final fetchweatherdata = await weatherservices.currentweather(
-          _controller.text.isEmpty ? "auto:ip" : _controller.text);
+      final fetchweatherdata = await weatherservices.currentweather(city);
       setState(() {
         weatherdata = fetchweatherdata;
       });
@@ -44,8 +45,6 @@ class _Homepage1State extends State<Homepage1> {
     final stateNames = await weatherservices.loadJsonData();
     setState(() {
       citys = stateNames;
-
-      print(citys);
     });
   }
 
@@ -75,20 +74,37 @@ class _Homepage1State extends State<Homepage1> {
                                       color: Colors.white,
                                     )),
                                 Expanded(
-                                  child: TextField(
-                                    controller: _controller,
-                                    // onChanged: _filterItems,
-                                    decoration: const InputDecoration(
-                                      hintStyle: TextStyle(
-                                        color: Colors
-                                            .white, // Change hint text color
-                                      ),
-                                      labelText: 'Search',
-                                      border: OutlineInputBorder(),
-                                    ),
-
-                                    style: TextStyle(
-                                      color: Colors.white, // Change text color
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 20.0),
+                                    child: Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        // If the input is empty, return an empty list
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        }
+                                        // Filter city names based on the input text
+                                        return citys.where((city) => city
+                                            .toLowerCase()
+                                            .contains(textEditingValue.text
+                                                .toLowerCase()));
+                                      },
+                                      onSelected: (String selection) {
+                                        city = selection;
+                                        fetchdata();
+                                      },
+                                      fieldViewBuilder: (context, controller,
+                                          focusNode, onFieldSubmitted) {
+                                        return TextField(
+                                          controller: controller,
+                                          focusNode: focusNode,
+                                          decoration: InputDecoration(
+                                            labelText: "Search City",
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
@@ -102,6 +118,9 @@ class _Homepage1State extends State<Homepage1> {
                                       color: Colors.white,
                                     )),
                               ]),
+                          SizedBox(
+                            height: 30,
+                          ),
                           Text(
                             "City not found",
                             style: GoogleFonts.roboto(color: Colors.white),
@@ -127,21 +146,38 @@ class _Homepage1State extends State<Homepage1> {
                                         color: Colors.white,
                                       )),
                                   Expanded(
-                                    child: TextField(
-                                      controller: _controller,
-                                      // onChanged: _filterItems,
-                                      decoration: const InputDecoration(
-                                        hintStyle: TextStyle(
-                                          color: Colors
-                                              .white, // Change hint text color
-                                        ),
-                                        labelText: 'Search',
-                                        border: OutlineInputBorder(),
-                                      ),
-
-                                      style: TextStyle(
-                                        color:
-                                            Colors.white, // Change text color
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0, vertical: 20.0),
+                                      child: Autocomplete<String>(
+                                        optionsBuilder: (TextEditingValue
+                                            textEditingValue) {
+                                          // If the input is empty, return an empty list
+                                          if (textEditingValue.text.isEmpty) {
+                                            return const Iterable<
+                                                String>.empty();
+                                          }
+                                          // Filter city names based on the input text
+                                          return citys.where((city) => city
+                                              .toLowerCase()
+                                              .contains(textEditingValue.text
+                                                  .toLowerCase()));
+                                        },
+                                        onSelected: (String selection) {
+                                          city = selection;
+                                          fetchdata();
+                                        },
+                                        fieldViewBuilder: (context, controller,
+                                            focusNode, onFieldSubmitted) {
+                                          return TextField(
+                                            controller: controller,
+                                            focusNode: focusNode,
+                                            decoration: InputDecoration(
+                                              labelText: "Search City",
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
