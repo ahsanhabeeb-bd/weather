@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_const, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +22,6 @@ class _Homepage1State extends State<Homepage1> {
     super.initState();
   }
 
-  final TextEditingController _controller = TextEditingController();
   final TextEditingValue text = TextEditingValue();
   final Apiservices weatherservices = Apiservices();
 
@@ -109,10 +108,7 @@ class _Homepage1State extends State<Homepage1> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {
-                                      fetchdata();
-                                      _controller.clear();
-                                    },
+                                    onPressed: () {},
                                     icon: const Icon(
                                       Icons.search,
                                       color: Colors.white,
@@ -182,10 +178,7 @@ class _Homepage1State extends State<Homepage1> {
                                     ),
                                   ),
                                   IconButton(
-                                      onPressed: () {
-                                        fetchdata();
-                                        _controller.clear();
-                                      },
+                                      onPressed: () {},
                                       icon: const Icon(
                                         Icons.search,
                                         color: Colors.white,
@@ -270,7 +263,7 @@ class _Homepage1State extends State<Homepage1> {
                         ),
                       ),
                       SingleChildScrollView(
-                        child: Container(
+                        child: SizedBox(
                             height: 200,
                             width: MediaQuery.of(context).size.width,
                             child: ListView.builder(
