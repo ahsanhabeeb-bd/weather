@@ -108,7 +108,10 @@ class _Homepage1State extends State<Homepage1> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      city = "auto:ip";
+                                      fetchdata();
+                                    },
                                     icon: const Icon(
                                       Icons.search,
                                       color: Colors.white,
@@ -178,9 +181,12 @@ class _Homepage1State extends State<Homepage1> {
                                     ),
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        city = "auto:ip";
+                                        fetchdata();
+                                      },
                                       icon: const Icon(
-                                        Icons.search,
+                                        Icons.location_pin,
                                         color: Colors.white,
                                       )),
                                 ]),

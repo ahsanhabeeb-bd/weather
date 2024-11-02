@@ -42,7 +42,7 @@ class Apiservices {
         }
       }
     }
-
+    stateNames.sort();
     return stateNames;
 
     // Print all state names
